@@ -36,7 +36,8 @@ class FormCriarContaMedico(FlaskForm):
     botao_submit_criar_med = SubmitField('Criar Conta')
 
 class FormLoginMedico(FlaskForm):
-    email = StringField('E-mail', validators=[DataRequired()])
-    senha = PasswordField('Senha', validators=[DataRequired()])
+    email = StringField('E-mail', validators=[DataRequired(), Email()])
+    senha = PasswordField('Senha', validators=[DataRequired(), length(6, 20)])
+    lembrar_dados = BooleanField('Lembrar Dados de Acesso')
     botao_submit_login_med = SubmitField('Fazer Login')
 

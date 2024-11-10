@@ -1,5 +1,5 @@
 from flask import Flask, render_template, url_for, request, flash, redirect
-from forms import FormCriarContaPaciente, FormLoginPaciente
+from forms import FormCriarContaPaciente, FormLoginPaciente, FormLoginMedico
 
 
 app = Flask(__name__)
@@ -36,7 +36,11 @@ def login_usuario():
 
 @app.route('/login-medico', methods=['GET', 'POST'])
 def login_medico():
-    return render_template('loginmed.html')
+    form_login_med = FormLoginMedico()
+    if form_login_med.validate_on_submit() and 'botao_submit_login_med' in request.form:
+        flash(f'Login feito com sucesso no e-mail: {form_login_med.email.data}', 'alert-success')
+        return redirect(url_for('landingpage'))
+    return render_template('loginmed.html', form_login_med=form_login_med)
 
 
 

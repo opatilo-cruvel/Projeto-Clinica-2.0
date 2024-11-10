@@ -1,7 +1,51 @@
 {% extends 'base.html' %}
 
 {% block body %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-2"></div>
+            <div class="col-8">
 
+                <form method="POST" action="" class="border p-4 mt-2" >
+                    {{ form_login_med.csrf_token }}
+                    <legend>Login do Médico</legend>
+                    <fieldset>
+                        <div class="form-group">
+                            {{ form_login_med.email.label(class="form-control-label") }}
+                            {% if form_login_med.email.errors %}
+                                {{ form_login_med.email(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for erro in form_login_med.email.errors %}
+                                        {{ erro }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form_login_med.email(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_login_med.senha.label(class="form-control-label") }}
+                            {% if form_login_med.senha.errors %}
+                                {{ form_login_med.senha(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for erro in form_login_med.senha.errors %}
+                                        {{ erro }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form_login_med.senha(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_login_med.lembrar_dados.label(class="form-check-label") }}
+                            {{ form_login_med.lembrar_dados(class="form-check-input") }}
+                        </div>
+                    </fieldset>
+                    {{ form_login_med.botao_submit_login_med(class="btn btn-primary mt-2") }}
+                </form>
 
-
+            </div>
+            <div class="col-2"></div>
+        </div>
+    </div>
 {% endblock %}
