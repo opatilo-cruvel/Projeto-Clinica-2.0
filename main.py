@@ -23,7 +23,6 @@ def sobrenos():
 def login_usuario():
     form_login = FormLoginPaciente()
     form_criarconta = FormCriarContaPaciente()
-
     if form_login.validate_on_submit() and 'botao_submit_login' in request.form:
         # Exibir msg de login bem sucedido
         flash(f'Login feito com sucesso no e-mail: {form_login.email.data}.', 'alert-success')
@@ -32,9 +31,7 @@ def login_usuario():
     if form_criarconta.validate_on_submit() and 'botao_submit_criarconta' in request.form:
         # Criou conta com sucesso
         flash(f'Conta criada com sucesso no e-mail: {form_criarconta.email.data}.', 'alert-success')
-        #
         return redirect(url_for('landingpage'))
-    
     return render_template('loginusuario.html', form_login=form_login, form_criarconta=form_criarconta)
 
 @app.route('/login-medico', methods=['GET', 'POST'])
