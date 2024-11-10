@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <section class="container">
+        <div class="row">
+            <div class="col  order-2 order-md-1 d-flex justify-content-end">
+                <img class="medico-banner" width="450" src="{{ url_for('static', filename='img/medicBanner.png') }}">
+            </div>
+            <div class="col  order-1 order-md-2">
+                <div class="textos-banner">
+                    <h1>
+                        Somos a<br> 
+                        maior rede<br> 
+                        de clínicas<br> 
+                        no país!
+                    </h1>
+                    <a class="btn" href="/contato">Contate-nos</a>
+                    <a class="btn" href="">Marque sua consulta</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="programas container">
+        <h1 class="title">Programas da nossa clínica</h1>
+        <img width="1170" src="{{ url_for('static', filename='img/programasClinica.png') }}" alt="">
+    </section>
+
+    <section class="container banner2 d-flex">
+        <h1>
+            Nossa clínica,
+            conta com um
+            <div>time de
+            profissionais
+            altamente
+            capacitados</div> e
+            dedicados à sua
+            saúde
+        </h1>
+        <img height="700" src="{{ url_for('static', filename='img/equipemed.png') }}">
+    </section>
+
+    <section class="container banner3 d-flex">
+        <img height="550" src="{{ url_for('static', filename='img/medMicrop.png') }}">
+        <div>
+            <h1>Nós acreditamos em você saudável</h1>
+            <p>
+                A missão da nossa clínica é criar uma comunidade 
+                mais saudável, fornecendo cuidadosde saúde
+                transformacionais para aqueles que vivem na pobreza,
+                nossa visão é que cada indivíduo tenha a 
+                oportunidade de manter-se saudável.
+            </p>
+            <a class="btn" href="">Saiba mais</a>
+        </div>
+    </section>
+
+{% endblock %}
