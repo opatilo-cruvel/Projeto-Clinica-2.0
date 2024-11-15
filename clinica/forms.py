@@ -1,9 +1,9 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, IntegerField, FileField, DateField, TimeField, SelectField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, IntegerField, FileField, DateField, TimeField, SelectField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, length, Email, equal_to
 
 class FormCriarContaPaciente(FlaskForm):
-    username = StringField('Nome de Usuário', validators=[DataRequired(), length(1, 250)])
+    username = StringField('Nome de Usuário', validators=[DataRequired(), length(1, 70)])
     idade = IntegerField('Idade',  validators=[DataRequired()])
     datanasc = DateField('Data de nascimento', validators=[DataRequired()])
     sexo = SelectField('Sexo', choices=[('M', 'Masculino'), ('F', 'Feminino'), ('O', 'Outro')], validators=[DataRequired()])
@@ -22,7 +22,7 @@ class FormLoginPaciente(FlaskForm):
     botao_submit_login = SubmitField('Fazer Login')
  
 class FormCriarContaMedico(FlaskForm):
-    username = StringField('Nome de Usuário', validator=[DataRequired()])
+    username = StringField('Nome de Usuário', validator=[DataRequired(), length(1, 70)])
     idade = IntegerField('Idade', validators=[DataRequired()])
     datanasc = DateField('Data de nascimento', validators=[DataRequired()])
     sexo = SelectField('Sexo', choices=[('M', 'Masculino'), ('F', 'Feminino'), ('O', 'Outro')], validators=[DataRequired()])
@@ -47,3 +47,13 @@ class FormLoginAdm(FlaskForm):
     lembrar_dados = BooleanField('Lembrar Dados de Acesso')
     botao_submit_login_adm = SubmitField('Fazer Login')
 
+class FormAgendaMedico(FlaskForm):
+    data = DateField('Data de disponibilidade', validators=[DataRequired()])
+    hora = TimeField('Hora de disponibilidade (referente ao dia)', validators=[DataRequired()])
+    id_medico = IntegerField('Seu id médico', validators=[DataRequired()])
+    status = StringField('Defina o Status')
+    botao_submit_agenda_med = SubmitField('Salvar')
+
+class FormAgendamentoPaciente(FlaskForm):
+    motivo = TextAreaField('Motivo da consulta:', validators=[DataRequired()])
+    botao_submit_agenda_paciente = SubmitField('Marcar')
