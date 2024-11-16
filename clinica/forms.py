@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, IntegerField, FileField, DateField, TimeField, SelectField, BooleanField, TextAreaField
-from wtforms.validators import DataRequired, length, Email, equal_to
+from wtforms.validators import DataRequired, length, Email, equal_to, ValidationError
+from clinica.models import Paciente
 
 class FormCriarContaPaciente(FlaskForm):
     username = StringField('Nome de Usuário', validators=[DataRequired(), length(1, 70)])
@@ -9,12 +10,17 @@ class FormCriarContaPaciente(FlaskForm):
     sexo = SelectField('Sexo', choices=[('M', 'Masculino'), ('F', 'Feminino'), ('O', 'Outro')], validators=[DataRequired()])
     numero = StringField('Número',  validators=[DataRequired()])
     cpf = StringField('CPF', validators=[DataRequired()])
-    # historico removido
     email = StringField('E-mail', validators=[DataRequired(), Email(), length(5, 255)])
     senha = PasswordField('Senha', validators=[DataRequired(), length(6, 20)])
     confirmacao = PasswordField('Confirmação da senha', validators=[DataRequired(), equal_to('senha')])
     botao_submit_criarconta = SubmitField('Criar Conta')
 
+
+    def validate_email(self, email):
+        paciente = Paciente.query.filter_by(email=email.data).first()
+        if paciente:
+            raise ValidationError('E-mail já cadastrado. Cadastre-se com outro e-mail ou faça login para continuar')
+        
 
 
 class FormLoginPaciente(FlaskForm):
