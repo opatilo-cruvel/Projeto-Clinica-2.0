@@ -1,5 +1,4 @@
 from clinica import database
-from flask_sqlalchemy import SQLAlchemy
 
 class Adm(database.Model):
     __tablename__ = 'adm'
@@ -18,11 +17,11 @@ class Paciente(database.Model):
     idade = database.Column(database.Integer, nullable=False)
     datanasc = database.Column(database.Date, nullable=False)
     sexo = database.Column(database.String(10), nullable=False)
-    numero = database.Column(database.String(11), nullable=False)
-    cpf = database.Column(database.String(11), nullable=False)
+    numero = database.Column(database.String(11), nullable=False, unique=True)
+    cpf = database.Column(database.String(11), nullable=False, unique=True)
     ## historico =
-    email = database.Column(database.String(150), nullable=False)
-    senha = database.Column(database.String(20), nullable=False)
+    email = database.Column(database.String(150), nullable=False, unique=True)
+    senha = database.Column(database.String, nullable=False)
     consultas = database.relationship('Consultas', backref='paciente', lazy=True)
 
 

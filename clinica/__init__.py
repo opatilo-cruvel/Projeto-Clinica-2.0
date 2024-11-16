@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 
 database = SQLAlchemy()
 
@@ -10,5 +11,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:2{U|Ny9_\\5sV@loc
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 database.init_app(app)  # Inicializa a instância de database que vem de models.py
+bcrypt = Bcrypt(app)
 
 from clinica import routes

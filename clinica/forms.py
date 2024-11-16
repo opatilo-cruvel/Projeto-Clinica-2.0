@@ -9,11 +9,13 @@ class FormCriarContaPaciente(FlaskForm):
     sexo = SelectField('Sexo', choices=[('M', 'Masculino'), ('F', 'Feminino'), ('O', 'Outro')], validators=[DataRequired()])
     numero = StringField('Número',  validators=[DataRequired()])
     cpf = StringField('CPF', validators=[DataRequired()])
-    historico = FileField('Histórico médico (opcional)')
+    # historico removido
     email = StringField('E-mail', validators=[DataRequired(), Email(), length(5, 255)])
     senha = PasswordField('Senha', validators=[DataRequired(), length(6, 20)])
     confirmacao = PasswordField('Confirmação da senha', validators=[DataRequired(), equal_to('senha')])
     botao_submit_criarconta = SubmitField('Criar Conta')
+
+
 
 class FormLoginPaciente(FlaskForm):
     email = StringField('E-mail', validators=[DataRequired(), Email()])

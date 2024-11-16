@@ -1,5 +1,5 @@
 from flask import  render_template, url_for, request, flash, redirect
-from clinica import app, database
+from clinica import app, database, bcrypt
 from clinica.forms import FormCriarContaPaciente, FormLoginPaciente, FormLoginMedico, FormLoginAdm
 from clinica.models import Paciente, Medico, Consultas
 
@@ -25,7 +25,11 @@ def login_usuario():
         # redirecionar para a homepage
         return redirect(url_for('landingpage'))
     if form_criarconta.validate_on_submit() and 'botao_submit_criarconta' in request.form:
-        # Criou conta com sucesso
+        senha_cript = bcrypt.generate_password_hash('form_criarconta.senha.data')
+        paciente = Paciente(username=form_criarconta.username.data, idade=form_criarconta.idade.data, datanasc=form_criarconta.datanasc.data, sexo=form_criarconta.sexo.data, numero=form_criarconta.numero.data, cpf=form_criarconta.cpf.data, email=form_criarconta.email.data, senha=senha_cript)
+        database.session.add(paciente)
+        database.session.commit()
+        
         flash(f'Conta criada com sucesso no e-mail: {form_criarconta.email.data}.', 'alert-success')
         return redirect(url_for('landingpage'))
     return render_template('loginusuario.html', form_login=form_login, form_criarconta=form_criarconta)
