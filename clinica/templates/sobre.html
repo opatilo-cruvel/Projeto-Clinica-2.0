@@ -2,6 +2,33 @@
 
 {% block body %}
 
-    <h1 class="container">Sobre nós</h1>
+<body>
+    <div class="container my-5">
+        <!-- Título Principal -->
+        <h1 class="text-center text-primary mb-4">Sobre Nós</h1>
+        <div class="row">
+            <div class="col-lg-8 offset-lg-2">
+                <!-- Introdução -->
+                <p class="lead text-center">Bem-vindo ao <strong>JAPP HOSPITAL</strong>, onde nosso compromisso é cuidar da sua saúde e bem-estar com excelência, dedicação e humanidade. Somos uma clínica que valoriza o atendimento de qualidade e a atenção integral a cada paciente, colocando a saúde como prioridade e buscando continuamente a inovação nos serviços que oferecemos.</p>
 
+                <!-- História -->
+                <h2 class="text-secondary mt-5">Nossa História</h2>
+                <p>Desde a nossa fundação, o <strong>JAPP HOSPITAL</strong> se estabeleceu como uma parte integrante da comunidade, dedicando-se a promover a saúde e o bem-estar de nossos pacientes e seus familiares. Nos orgulhamos de participar ativamente de iniciativas comunitárias e educacionais, buscando formas de impactar positivamente a vida das pessoas que atendemos.</p>
+
+                <!-- Equipe -->
+                <h2 class="text-secondary mt-5">Nossa Equipe</h2>
+                <p>Contamos com uma equipe de profissionais altamente qualificados e dedicados, que compartilham nosso compromisso com o cuidado humanizado e a excelência médica. Todos os nossos colaboradores estão alinhados aos nossos valores de ética, respeito e empatia, e são comprometidos em oferecer o melhor atendimento para nossos pacientes.</p>
+                 
+                <!-- Seções de Missão, Visão e Valores -->
+                 <section class="text-secondary mt-5"  style="text-align: center;">
+                    <h1 class="title" style="text-align: left;">Missão, Visão e Valores</h1>
+                     <img width="800" src="{{ url_for('static', filename='img/missao_visao_valor.jpeg') }}" alt=""style="display: block; margin: 0 auto;">
+                </section>
+                
+            </div>
+        </div>
+    </div>
+
+    
+</body>
 {% endblock %}
