@@ -2,7 +2,7 @@ from flask import  render_template, url_for, request, flash, redirect
 from clinica import app, database, bcrypt
 from clinica.forms import FormCriarContaPaciente, FormCriarContaMedico, FormLoginPaciente, FormLoginMedico, FormLoginAdm
 from clinica.models import Paciente, Medico, Adm
-from flask_login import login_user
+from flask_login import login_user, logout_user, current_user, login_required
 
 @app.route('/')
 def landingpage():
@@ -70,3 +70,22 @@ def login_adm():
             flash(f'falha no login. E-mail ou senha incorretos', 'alert-danger')
 
     return render_template('loginadm.html', form_login_adm=form_login_adm)
+
+
+@app.route('/sair')
+@login_required
+def sair():
+    logout_user()
+    flash('Logout feito com sucesso', 'alert-success')
+    return redirect(url_for('landingpage'))
+
+@app.route('/perfil')
+@login_required
+def perfil():
+    return render_template('perfil.html')
+
+@app.route('/consulta')
+@login_required
+def consulta():
+    return render_template('consulta.html')
+
