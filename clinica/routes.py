@@ -1,7 +1,7 @@
 from flask import  render_template, url_for, request, flash, redirect
 from clinica import app, database, bcrypt
-from clinica.forms import FormCriarContaPaciente, FormLoginPaciente, FormLoginMedico, FormLoginAdm
-from clinica.models import Paciente, Medico, Consultas
+from clinica.forms import FormCriarContaPaciente, FormCriarContaMedico, FormLoginPaciente, FormLoginMedico, FormLoginAdm
+from clinica.models import Paciente, Medico, Adm
 from flask_login import login_user
 
 @app.route('/')
@@ -20,8 +20,10 @@ def sobrenos():
 def login_usuario():
     form_login = FormLoginPaciente()
     form_criarconta = FormCriarContaPaciente()
+
     if form_login.validate_on_submit() and 'botao_submit_login' in request.form:
         paciente = Paciente.query.filter_by(email=form_login.email.data).first()
+
         if paciente and bcrypt.check_password_hash(paciente.senha, form_login.senha.data):
             login_user(paciente, remember=form_login.lembrar_dados.data)
             flash(f'Login feito com sucesso no e-mail: {form_login.email.data}.', 'alert-success')
@@ -44,15 +46,27 @@ def login_usuario():
 def login_medico():
     form_login_med = FormLoginMedico()
     if form_login_med.validate_on_submit() and 'botao_submit_login_med' in request.form:
-        flash(f'Login feito com sucesso no e-mail: {form_login_med.email.data}', 'alert-success')
-        return redirect(url_for('landingpage'))
+        medico = Medico.query.filter_by(email=form_login_med.email.data).first()
+        if medico and bcrypt.check_password_hash(medico.senha, form_login_med.data):
+            login_user(medico, remember=form_login_med.lembrar_dados.data)
+            flash(f'Login feito com sucesso no e-mail: {form_login_med.email.data}', 'alert-success')
+            return redirect(url_for('landingpage'))
+        else:
+            flash(f'falha no login. E-mail ou senha Incorretos', 'alert-danger')
+
     return render_template('loginmed.html', form_login_med=form_login_med)
- 
+
+
 @app.route('/login-adm', methods=['GET', 'POST'])
 def login_adm():
     form_login_adm = FormLoginAdm()
     if form_login_adm.validate_on_submit() and 'botao_submit_login_adm' in request.form:
-        flash(f'Login feito com sucesso no e-mail: {form_login_adm.email.data}', 'alert-success')
-        return redirect(url_for('landingpage'))
+        adm = Adm.query.filter_by(email=form_login_adm.email.data).first()
+        if adm and bcrypt.check_password_hash(adm.senha, form_login_adm.data):
+            login_user(adm, remember=form_login_adm.lembrar_dados.data)
+            flash(f'Login feito com sucesso no e-mail: {form_login_adm.email.data}', 'alert-success')
+            return redirect(url_for('landingpage'))
+        else:
+            flash(f'falha no login. E-mail ou senha incorretos', 'alert-danger')
 
     return render_template('loginadm.html', form_login_adm=form_login_adm)
