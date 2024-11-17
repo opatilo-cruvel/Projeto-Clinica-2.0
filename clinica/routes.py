@@ -2,6 +2,7 @@ from flask import  render_template, url_for, request, flash, redirect
 from clinica import app, database, bcrypt
 from clinica.forms import FormCriarContaPaciente, FormLoginPaciente, FormLoginMedico, FormLoginAdm
 from clinica.models import Paciente, Medico, Consultas
+from flask_login import login_user
 
 @app.route('/')
 def landingpage():
@@ -20,12 +21,17 @@ def login_usuario():
     form_login = FormLoginPaciente()
     form_criarconta = FormCriarContaPaciente()
     if form_login.validate_on_submit() and 'botao_submit_login' in request.form:
-        # Exibir msg de login bem sucedido
-        flash(f'Login feito com sucesso no e-mail: {form_login.email.data}.', 'alert-success')
-        # redirecionar para a homepage
-        return redirect(url_for('landingpage'))
+        paciente = Paciente.query.filter_by(email=form_login.email.data).first()
+        if paciente and bcrypt.check_password_hash(paciente.senha, form_login.senha.data):
+            login_user(paciente, remember=form_login.lembrar_dados.data)
+            flash(f'Login feito com sucesso no e-mail: {form_login.email.data}.', 'alert-success')
+            # redirecionar para a homepage
+            return redirect(url_for('landingpage'))
+        else:
+            flash(f'falha no login. E-mail ou senha Incorretos', 'alert-danger')
+    
     if form_criarconta.validate_on_submit() and 'botao_submit_criarconta' in request.form:
-        senha_cript = bcrypt.generate_password_hash('form_criarconta.senha.data')
+        senha_cript = bcrypt.generate_password_hash(form_criarconta.senha.data).decode('utf-8')
         paciente = Paciente(username=form_criarconta.username.data, idade=form_criarconta.idade.data, datanasc=form_criarconta.datanasc.data, sexo=form_criarconta.sexo.data, numero=form_criarconta.numero.data, cpf=form_criarconta.cpf.data, email=form_criarconta.email.data, senha=senha_cript)
         database.session.add(paciente)
         database.session.commit()

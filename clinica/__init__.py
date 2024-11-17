@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
+from flask_login import LoginManager
 
 database = SQLAlchemy()
 
@@ -12,5 +13,6 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 database.init_app(app)  # Inicializa a instância de database que vem de models.py
 bcrypt = Bcrypt(app)
+login_manager = LoginManager(app)
 
 from clinica import routes

@@ -1,6 +1,23 @@
-from clinica import database
+from clinica import database, login_manager
+from flask_login import UserMixin
 
-class Adm(database.Model):
+
+@login_manager.user_loader
+def load_paciente(id_paciente):
+    return Paciente.query.get(int(id_paciente))
+
+@login_manager.user_loader
+def load_medico(id_medico):
+    return Medico.query.get(int(id_medico))
+
+@login_manager.user_loader
+def load_adm(id_adm):
+    return Adm.query.get(int(id_adm))
+
+
+
+
+class Adm(database.Model, UserMixin):
     __tablename__ = 'adm'
 
     id = database.Column(database.Integer, primary_key=True)
@@ -9,7 +26,7 @@ class Adm(database.Model):
 
 
 
-class Paciente(database.Model):
+class Paciente(database.Model, UserMixin):
     __tablename__ = 'paciente'
 
     id = database.Column(database.Integer, primary_key=True)
@@ -26,7 +43,7 @@ class Paciente(database.Model):
 
 
 
-class Medico(database.Model):
+class Medico(database.Model, UserMixin):
     __tablename__ = 'medico'
 
     id = database.Column(database.Integer, primary_key=True)
@@ -36,7 +53,7 @@ class Medico(database.Model):
     sexo = database.Column(database.String(10), nullable=False)
     numero = database.Column(database.String(11), nullable=False)
     cpf = database.Column(database.String(11), nullable=False)
-    crm = database.Column(database.String(), nullable=False)
+    crm = database.Column(database.String(13), nullable=False)
     especialidade = database.Column(database.String(), nullable=False)
     email = database.Column(database.String(255), nullable=False)
     senha = database.Column(database.String(20), nullable=False)
