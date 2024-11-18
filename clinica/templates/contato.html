@@ -1,16 +1,33 @@
 {% extends 'base.html' %}
 
 {% block body %}
-
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <h1>titulo 1</h1>
-            </div>
-            <div class="col">
-                <h1>titulo 2</h1>
-            </div>
+<div class="container">
+    <div class="row">
+        <div class="col text-center">
+            <form method="POST" action="" class="border pt-7 nt-3">
+                {{ formfaleconosco.csrf_token }}
+                <legend>Fale Conosco</legend>
+               <fieldset>
+                    <div class="form-group">
+                        {{ formfaleconosco.nome.label(class="form-control-label") }}
+                        {{ formfaleconosco.nome(class="form-control") }}
+                    </div>
+                    <div class="form-group"> 
+                        {{ formfaleconosco.email.label(class="form-control-label") }}  
+                        {{ formfaleconosco.email(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                        {{ formfaleconosco.telefone.label(class="form-control-label") }}
+                        {{ formfaleconosco.telefone(class="form-control") }}
+                    </div>
+                    <div class="form-group">
+                        {{ formfaleconosco.assunto.label(class="form-control-label") }}
+                        {{ formfaleconosco.assunto(class="form-control") }}
+                    </div>
+                </fieldset>
+                {{ formfaleconosco.botao_submit_contato(class="btn btn-primary mt-3") }}
+            </form>
         </div>
     </div>
-
+</div>
 {% endblock %}

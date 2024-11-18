@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, IntegerField, FileField, DateField, TimeField, SelectField, BooleanField, TextAreaField
-from wtforms.validators import DataRequired, length, Email, equal_to, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, IntegerField, FileField, DateField, TimeField, SelectField, BooleanField, TextAreaField, TelField
+from wtforms.validators import DataRequired, length, Email, equal_to, ValidationError, Regexp
 from clinica.models import Paciente, Medico
 
 class FormCriarContaPaciente(FlaskForm):
@@ -98,3 +98,10 @@ class FormAgendaMedico(FlaskForm):
 class FormAgendamentoPaciente(FlaskForm):
     motivo = TextAreaField('Motivo da consulta:', validators=[DataRequired()])
     botao_submit_agenda_paciente = SubmitField('Marcar')
+
+class FormFaleConosco(FlaskForm):
+    nome = StringField('Nome', validators=[DataRequired(), length(1,40)])
+    email = StringField('E-mail', validators=[DataRequired(), Email()])
+    telefone = TelField('Telefone', validators=[DataRequired(), length(10, 15,) ,Regexp(r'^\d+$')])
+    assunto = StringField('Assunto', validators=[DataRequired(), length(1, 400)])
+    botao_submit_contato = SubmitField ('Enviar')
