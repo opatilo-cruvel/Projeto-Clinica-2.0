@@ -1,6 +1,6 @@
-from flask import  render_template, url_for, request, flash, redirect
+from flask import  render_template, url_for, request, flash, redirect, session
 from clinica import app, database, bcrypt
-from clinica.forms import FormCriarContaPaciente, FormCriarContaMedico, FormLoginPaciente, FormLoginMedico, FormLoginAdm
+from clinica.forms import FormCriarContaPaciente, FormLoginPaciente, FormLoginMedico, FormLoginAdm, FormCriarContaMedico
 from clinica.models import Paciente, Medico, Adm
 from flask_login import login_user, logout_user, current_user, login_required
 
@@ -27,8 +27,11 @@ def login_usuario():
         if paciente and bcrypt.check_password_hash(paciente.senha, form_login.senha.data):
             login_user(paciente, remember=form_login.lembrar_dados.data)
             flash(f'Login feito com sucesso no e-mail: {form_login.email.data}.', 'alert-success')
-            # redirecionar para a homepage
-            return redirect(url_for('landingpage'))
+            par_next = request.args.get('next')
+            if par_next:
+                return redirect(par_next)
+            else:
+                return redirect(url_for('landingpage'))
         else:
             flash(f'falha no login. E-mail ou senha Incorretos', 'alert-danger')
     

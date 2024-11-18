@@ -6,14 +6,6 @@ from flask_login import UserMixin
 def load_paciente(id_paciente):
     return Paciente.query.get(int(id_paciente))
 
-@login_manager.user_loader
-def load_medico(id_medico):
-    return Medico.query.get(int(id_medico))
-
-@login_manager.user_loader
-def load_adm(id_adm):
-    return Adm.query.get(int(id_adm))
-
 
 
 
