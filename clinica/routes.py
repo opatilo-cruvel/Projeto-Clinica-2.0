@@ -1,7 +1,7 @@
 from flask import  render_template, url_for, request, flash, redirect, session
 from clinica import app, database, bcrypt
 from clinica.forms import FormCriarContaPaciente, FormLoginPaciente, FormLoginMedico, FormLoginAdm, FormCriarContaMedico, FormFaleConosco
-from clinica.models import Paciente, Medico, Adm
+from clinica.models import Paciente, Medico, Adm, Contato
 from flask_login import login_user, logout_user, current_user, login_required
 
 @app.route('/')
@@ -12,6 +12,9 @@ def landingpage():
 def contato():
     formfaleconosco = FormFaleConosco()
     if formfaleconosco.validate_on_submit() and 'botao_submit_contato' in request.form:
+        contato = Contato(nome=formfaleconosco.nome.data, email=formfaleconosco.email.data, telefone=formfaleconosco.telefone.data, assunto=formfaleconosco.assunto.data)
+        database.session.add(contato)
+        database.session.commit()
         flash('Mensagem enviada com sucesso', 'alert-success')
         return redirect(url_for('landingpage'))
     

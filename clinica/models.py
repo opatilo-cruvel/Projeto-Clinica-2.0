@@ -1,7 +1,6 @@
 from clinica import database, login_manager
 from flask_login import UserMixin
 
-
 @login_manager.user_loader
 def load_paciente(id_paciente):
     return Paciente.query.get(int(id_paciente))
@@ -64,6 +63,9 @@ class Consultas(database.Model):
     id_paciente = database.Column(database.Integer, database.ForeignKey('paciente.id'))
     motivo = database.Column(database.Text)
     
-
-
-    
+class Contato(database.Model):
+    id = database.Column(database.Integer, primary_key=True)
+    nome = database.Column(database.String, nullable=False)
+    email = database.Column(database.String, nullable=False)
+    telefone = database.Column(database.String, nullable=False)
+    assunto = database.Column(database.Text)

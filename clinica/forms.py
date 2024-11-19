@@ -102,6 +102,6 @@ class FormAgendamentoPaciente(FlaskForm):
 class FormFaleConosco(FlaskForm):
     nome = StringField('Nome', validators=[DataRequired(), length(1,40)])
     email = StringField('E-mail', validators=[DataRequired(), Email()])
-    telefone = TelField('Telefone', validators=[DataRequired(), length(10, 15,) ,Regexp(r'^\d+$')])
+    telefone = StringField('Telefone', validators=[DataRequired(), length(10, 15,) , Regexp(r'^\d+$', message="O telefone deve conter apenas números.")])
     assunto = StringField('Assunto', validators=[DataRequired(), length(1, 400)])
     botao_submit_contato = SubmitField ('Enviar')
