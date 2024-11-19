@@ -1,7 +1,7 @@
 from flask import  render_template, url_for, request, flash, redirect, session
 from clinica import app, database, bcrypt
-from clinica.forms import FormCriarContaPaciente, FormLoginPaciente, FormLoginMedico ,FormLoginAdm, FormCriarContaMedico, FormCriarContaAdm
-from clinica.models import Paciente, Medico, Adm
+from clinica.forms import FormCriarContaPaciente, FormLoginPaciente, FormLoginMedico, FormLoginAdm, FormCriarContaMedico, FormCriarContaAdm, FormFaleConosco
+from clinica.models import Paciente, Medico, Adm, Contato
 from flask_login import login_user, logout_user, current_user, login_required
 
 @app.route('/')
@@ -18,9 +18,17 @@ def landingpage():
 
     return render_template('landingpage.html', user_type=user_type)
 
-@app.route('/contato')
+@app.route('/contato', methods=['GET','POST'])
 def contato():
-    return render_template('contato.html')
+    formfaleconosco = FormFaleConosco()
+    if formfaleconosco.validate_on_submit() and 'botao_submit_contato' in request.form:
+        contato = Contato(nome=formfaleconosco.nome.data, email=formfaleconosco.email.data, telefone=formfaleconosco.telefone.data, assunto=formfaleconosco.assunto.data)
+        database.session.add(contato)
+        database.session.commit()
+        flash('Mensagem enviada com sucesso', 'alert-success')
+        return redirect(url_for('landingpage'))
+    
+    return render_template('contato.html', formfaleconosco=formfaleconosco)
 
 @app.route('/sobre-nos')
 def sobrenos():
