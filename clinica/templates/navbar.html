@@ -15,12 +15,22 @@
             </ul>
             <ul class="d-flex navbar-nav">
                 {% if current_user.is_authenticated %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('consulta') }}">Marcar consulta</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('perfil') }}">Meu perfil</a>
-                    </li>
+                    {% if user_type == 'paciente' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('consulta') }}">Marcar consulta</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('perfil') }}">Meu perfil</a>
+                        </li>
+                    {% elif user_type == 'medico' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('consulta') }}">Cadastrar Medico</a>
+                        </li>
+                    {% elif user_type == 'adm' %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('cadastrarmedico') }}">Cadastrar Medico</a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('sair') }}">Sair</a>
                     </li>

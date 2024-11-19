@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <div class="container">
+        <h1>cadastrar médico</h1>
+        <hr>
+        <div class="row">
+            <div class="col">
+                <form method="POST" action="" class="border p-4 mt-2">
+                    {{ form_criarconta_med.csrf_token }}
+                    <legend>Cadastro</legend>
+                    <fieldset>
+                        <div class="form-group">
+                            {{ form_criarconta_med.username.label(class="form-control-label") }}
+                            {% if form_criarconta_med.username.errors %}
+                                {{ form_criarconta_med.username(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for erro in  form_criarconta_med.username.errors %}
+                                        {{ erro }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form_criarconta_med.username(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_criarconta_med.idade.label(class="form-control-label") }}
+                            {% if form_criarconta_med.idade.errors %}
+                                {{ form_criarconta_med.idade(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for erro in  form_criarconta_med.idade.errors %}
+                                        {{ erro }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form_criarconta_med.idade(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_criarconta_med.datanasc.label(class="form-control-label") }}
+                            {% if form_criarconta_med.datanasc.errors %}
+                                {{ form_criarconta_med.datanasc(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for erro in  form_criarconta_med.datanasc.errors %}
+                                        {{ erro }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form_criarconta_med.datanasc(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_criarconta_med.sexo.label(class="form-control-label") }}
+                            {% if form_criarconta_med.sexo.errors %}
+                                {{ form_criarconta_med.sexo(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for erro in  form_criarconta_med.sexo.errors %}
+                                        {{ erro }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form_criarconta_med.sexo(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_criarconta_med.numero.label(class="form-control-label") }}
+                            {% if form_criarconta_med.numero.errors %}
+                                {{ form_criarconta_med.numero(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for erro in  form_criarconta_med.numero.errors %}
+                                        {{ erro }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form_criarconta_med.numero(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_criarconta_med.cpf.label(class="form-control-label") }}
+                            {% if form_criarconta_med.cpf.errors %}
+                                {{ form_criarconta_med.cpf(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for erro in form_criarconta_med.cpf.errors %}
+                                        {{ erro }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form_criarconta_med.cpf(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_criarconta_med.crm.label(class="form-control-label") }}
+                            {% if form_criarconta_med.crm.errors %}
+                                {{ form_criarconta_med.crm(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for erro in form_criarconta_med.crm.errors %}
+                                        {{ erro }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form_criarconta_med.crm(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_criarconta_med.especialidade.label(class="form-control-label") }}
+                            {% if form_criarconta_med.especialidade.errors %}
+                                {{ form_criarconta_med.especialidade(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for erro in form_criarconta_med.especialidade.errors %}
+                                        {{ erro }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form_criarconta_med.especialidade(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_criarconta_med.email.label(class="form-control-label") }}
+                            {% if form_criarconta_med.email.errors %}
+                                {{ form_criarconta_med.email(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for erro in  form_criarconta_med.email.errors %}
+                                        {{ erro }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form_criarconta_med.email(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_criarconta_med.senha.label(class="form-control-label") }}
+                            {% if form_criarconta_med.senha.errors %}
+                                {{ form_criarconta_med.senha(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for erro in form_criarconta_med.senha.errors %}
+                                        {{ erro }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form_criarconta_med.senha(class="form-control") }}
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form_criarconta_med.confirmacao.label(class="form-control-label") }}
+                            {% if form_criarconta_med.confirmacao.errors %}
+                                {{ form_criarconta_med.confirmacao(class="form-control is-invalid") }}
+                                <div class="invalid-feedback">
+                                    {% for erro in  form_criarconta_med.confirmacao.errors %}
+                                        {{ erro }}
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form_criarconta_med.confirmacao(class="form-control") }}
+                            {% endif %}
+                        </div>
+                    </fieldset>
+                    {{ form_criarconta_med.botao_submit_criar_med(class="btn btn-primary mt-2") }}
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

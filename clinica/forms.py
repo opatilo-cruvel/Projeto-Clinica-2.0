@@ -40,7 +40,7 @@ class FormLoginPaciente(FlaskForm):
  
 
 class FormCriarContaMedico(FlaskForm):
-    username = StringField('Nome de Usuário', validator=[DataRequired(), length(1, 70)])
+    username = StringField('Nome de Usuário', validators=[DataRequired(), length(1, 70)])
     idade = IntegerField('Idade', validators=[DataRequired()])
     datanasc = DateField('Data de nascimento', validators=[DataRequired()])
     sexo = SelectField('Sexo', choices=[('M', 'Masculino'), ('F', 'Feminino'), ('O', 'Outro')], validators=[DataRequired()])
@@ -85,6 +85,12 @@ class FormLoginAdm(FlaskForm):
     senha = PasswordField('Senha', validators=[DataRequired(), length(6, 20)])
     lembrar_dados = BooleanField('Lembrar Dados de Acesso')
     botao_submit_login_adm = SubmitField('Fazer Login')
+
+class FormCriarContaAdm(FlaskForm):
+    email = StringField('E-mail', validators=[DataRequired(), Email()])
+    senha = PasswordField('Senha', validators=[DataRequired(), length(6, 20)])
+    confirmacao = PasswordField('Confirmação da senha', validators=[DataRequired(), equal_to('senha')])
+    botao_submit_criarconta_adm = SubmitField('Fazer Login')
 
 
 class FormAgendaMedico(FlaskForm):

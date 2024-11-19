@@ -3,8 +3,24 @@ from flask_login import UserMixin
 
 
 @login_manager.user_loader
-def load_paciente(id_paciente):
-    return Paciente.query.get(int(id_paciente))
+def load_user(user_id):
+    # Primeiro, tentar carregar o Paciente, caso ele exista
+    paciente = Paciente.query.get(int(user_id))
+    if paciente:
+        return paciente
+
+    # Se não encontrar, tenta carregar o Medico
+    medico = Medico.query.get(int(user_id))
+    if medico:
+        return medico
+
+    # Se ainda não encontrar, tenta carregar o Adm
+    adm = Adm.query.get(int(user_id))
+    if adm:
+        return adm
+
+    # Se não encontrar nada, retorna None
+    return None
 
 
 
@@ -14,7 +30,7 @@ class Adm(database.Model, UserMixin):
 
     id = database.Column(database.Integer, primary_key=True)
     email = database.Column(database.String(255), nullable=False)
-    senha = database.Column(database.String(20), nullable=False)
+    senha = database.Column(database.String(), nullable=False)
 
 
 
@@ -35,6 +51,7 @@ class Paciente(database.Model, UserMixin):
 
 
 
+
 class Medico(database.Model, UserMixin):
     __tablename__ = 'medico'
 
@@ -48,7 +65,7 @@ class Medico(database.Model, UserMixin):
     crm = database.Column(database.String(13), nullable=False)
     especialidade = database.Column(database.String(), nullable=False)
     email = database.Column(database.String(255), nullable=False)
-    senha = database.Column(database.String(20), nullable=False)
+    senha = database.Column(database.String(), nullable=False)
     consultas = database.relationship('Consultas', backref='medico', lazy=True)
 
 
