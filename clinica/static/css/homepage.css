@@ -1,0 +1,49 @@
+.textos-banner h1{
+    font-size: 80px;
+}
+
+.programas img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 70px;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+
+.banner2 h1{
+    font-size: 70px;
+}
+
+.banner2 {
+    margin-bottom: 70px;
+}
+
+.banner3 {
+    justify-content: center;
+    align-items: center;
+}
+
+.banner3 h1 {
+    font-size: 70px;
+    margin-left: 20px;
+}
+
+.banner3 p{
+    font-size: 20px;
+    margin-left: 20px;
+}
+
+.banner3 a{
+    font-size: 40px;
+}
+
+.banner3 {
+    margin-bottom: 200px;
+}
